@@ -16,16 +16,10 @@ class Router {
     public function resolve() {
         global $routes;
 
-        echo $this->uri;
         if (array_key_exists($this->uri, $routes)) {
             [$controller, $method] = $routes[$this->uri];
             $path = "app/controllers/{$controller}.php";
-
-            echo $path;
-
             require_once($path);
-
-
 
             return $controller::$method();
         }

@@ -2,9 +2,9 @@
 
 require_once "app/models/Book.php";
 
-class BookController{
+class BookController {
     public static function index() {
-        require_once "../views/book/index.php";
+        require_once "app/views/book/index.php";
 
         $books = Book::getAllBooks();
         return displayBooks($books);

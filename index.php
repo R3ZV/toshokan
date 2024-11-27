@@ -1,9 +1,10 @@
 <?php
 
-require_once("./config/router.php");
+require_once("config/router.php");
+require_once("config/pdo.php");
 
-$router = new Router();
 $uri = $_SERVER["REQUEST_URI"];
-$router->resolve($uri);
+$router = new Router($uri);
+echo $router->resolve();
 
 ?>
