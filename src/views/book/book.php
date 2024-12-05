@@ -1,8 +1,7 @@
 <?php
-require_once("app/views/template.php");
-require_once("app/models/Book.php");
+require_once("src/views/template.php");
 
-function displayBooks($books): string {
+function displayBook($book): string {
     $table = '<table class="table">
         <thead>
             <tr>
@@ -17,7 +16,7 @@ function displayBooks($books): string {
         </thead>
         <tbody>';
 
-    foreach ($books as $book) {
+    if ($book) {
         $table .= '<tr>
             <td>' . htmlspecialchars($book['id']) . '</td>
             <td>' . htmlspecialchars($book['title']) . '</td>

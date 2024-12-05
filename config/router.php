@@ -1,43 +1,24 @@
 <?php
 
-require_once("./app/views/404.php");
-
-$routes = [
-    "books" => ["BookController", "index"],
-];
-
 class Router {
-    private $uri;
+    protected $routes = [];
 
-    public function __construct() {
-        $this->uri = trim($_SERVER["REQUEST_URI"], "/");
+    public function addRoute(string $route, callable $action) {
+        $this->routes[$route] = $action;
     }
 
-    public function resolve() {
-        global $routes;
+    public function direct(): string {
+        $uri = strtok($_SERVER['REQUEST_URI'], '?');
+        $method =  $_SERVER['REQUEST_METHOD'];
 
-        if (array_key_exists($this->uri, $routes)) {
-            [$controller, $method] = $routes[$this->uri];
-            $path = "app/controllers/{$controller}.php";
-            require_once($path);
-
-            return $controller::$method();
+        if (array_key_exists($uri, $this->routes)) {
+            $action = $this->routes[$uri];
+            return $action();
+        } else {
+            header("Location: /404");
+            die();
         }
-
-        return notFoundPage();
     }
 }
 
-
-/* class Router { */
-/*     public function resolve(string $path) { */
-/*         if (array_key_exists($path, $this->routes)) { */
-/*             $this->routes[$path](); */
-/*         } else { */
-/*             header("Location: /404"); */
-/*             die(); */
-/**/
-/*         } */
-/*     } */
-/* } */
 ?>

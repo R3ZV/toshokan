@@ -1,10 +1,19 @@
 <?php
-
 require_once("config/router.php");
-require_once("config/pdo.php");
 
-$uri = $_SERVER["REQUEST_URI"];
-$router = new Router($uri);
-echo $router->resolve();
+// Controllers
+require_once("src/controllers/Home.php");
+require_once("src/controllers/Book.php");
+require_once("src/controllers/Errors.php");
+
+$router = new Router();
+$router->addRoute("/", [HomeController::class, "index"]);
+$router->addRoute("/404", [Errors::class, "notFound"]);
+
+$router->addRoute("/book/index", [BookController::class, "index"]);
+$router->addRoute("/book/show", [BookController::class, "show"]);
+$router->addRoute("/book/edit", [BookController::class, "edit"]);
+
+echo $router->direct();
 
 ?>
