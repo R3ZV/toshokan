@@ -66,6 +66,26 @@ class Book {
         );
         return $status;
     }
+
+    public static function addBook(array $data): bool {
+        global $pdo;
+
+        $sql = "INSERT INTO books (title, author, description, genre, stock, published) 
+                VALUES (:title, :author, :description, :genre, :stock, :published)";
+
+        $stmt = $pdo->prepare($sql);
+        $status = $stmt->execute(
+            array(
+                ":title" => $data['title'],
+                ":author" => $data['author'],
+                ":description" => $data['description'],
+                ":genre" => $data['genre'],
+                ":stock" => $data['stock'],
+                ":published" => $data['published'],
+            )
+        );
+        return $status;
+    }
 }
 ?>
 

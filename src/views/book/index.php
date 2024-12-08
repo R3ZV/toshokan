@@ -26,13 +26,14 @@ function displayBooks($books): string {
             <td>' . htmlspecialchars($book['published']) . '</td>
             <td>
                 <a href="/book/edit?id=' . htmlspecialchars($book['id']) . '">Edit</a> |
-                <a href="/book/delete?id=' . htmlspecialchars($book['id']) . '">Delete</a> |
+                <a href="/book/delete?id=' . htmlspecialchars($book['id']) . '">Delete</a>
             </td>
         </tr>';
     }
 
     $table .= '</tbody></table>';
+    $content = $table . ' <a href="/book/add">Add a book</a>';
 
-    return htmlFromTemplate($table);
+    return htmlFromTemplate($content);
 }
 ?>

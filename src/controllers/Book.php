@@ -76,7 +76,58 @@ class BookController {
                 die();
             }
 
+            if ($data['published'] < 0) {
+                header("Location: /book/index");
+                die();
+            }
+
             self::editPost($data);
+        } else {
+            header("Location: /404");
+            die();
+        }
+
+        header("Location: /book/index");
+        die();
+    }
+
+    public static function addGet(): string {
+        require_once "src/views/book/add.php";
+        return addBook();
+    }
+
+    public static function addPost($data): bool {
+        return Book::addBook($data);
+    }
+
+    public static function add(): string {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            return self::addGet();
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'title' => $_POST['title'],
+                'author' => $_POST['author'],
+                'description' => $_POST['description'],
+                'genre' => $_POST['genre'],
+                'stock' => $_POST['stock'],
+                'published' => $_POST['published']
+            ];
+
+            // TODO:
+            // use sessions to save data on fail
+            if ($data['stock'] < 0) {
+                header("Location: /book/add");
+                die();
+            }
+
+            if ($data['published'] < 0) {
+                header("Location: /book/add");
+                die();
+            }
+
+            self::addPost($data);
         } else {
             header("Location: /404");
             die();

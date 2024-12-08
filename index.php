@@ -16,6 +16,7 @@ $router->addRoute("/book/index", [BookController::class, "index"]);
 $router->addRoute("/book/show", [BookController::class, "show"]);
 $router->addRoute("/book/edit", [BookController::class, "edit"]);
 $router->addRoute("/book/delete", [BookController::class, "delete"]);
+$router->addRoute("/book/add", [BookController::class, "add"]);
 
 echo $router->direct();
 
