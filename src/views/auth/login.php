@@ -3,8 +3,8 @@
 require_once("src/views/template.php");
 
 function loginPage(): string {
-    $content = '
-        <form>
+    $form = '<form action="/login" method="POST">
+        <form action="">
             <fieldset>
                 <label>
                     Username:
@@ -29,7 +29,7 @@ function loginPage(): string {
         />
     </form>
     ';
-    return htmlFromTemplate($content);
+    return htmlFromTemplate($form);
 }
 
 ?>

@@ -2,22 +2,21 @@
 require_once "config/pdo.php";
 
 class User {
-    static public function hello() {
-        echo "Hello from user callback";
-    }
-
-    public static function getAllUsers() {
+    public static function exists($username, $password): bool {
         global $pdo;
 
+        var_dump($username, $password);
+
         $sql = "
-        SELECT * FROM users;
+            SELECT * FROM users
+            WHERE username = :username AND
+                  password = :password AND
+                  role = 'admin';
         ";
-
-        $stmt = $pdo->query($sql);
         $stmt = $pdo->prepare($sql);
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $status = $stmt->execute(array(":username" => $username, ":password" => $password));
 
-        echo users;
+        return $status;
     }
 }
 ?>

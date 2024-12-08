@@ -1,5 +1,15 @@
 <?php
 function htmlFromTemplate(string $inject): string {
+    $logged = false;
+
+    if (array_key_exists('logged', $_SESSION)) {
+        $logged = $_SESSION['logged'];
+    }
+
+    $authLink = $logged ?
+    '<li><a href="/logout" class="contrast">Log Out</a></li>' : 
+    '<li><a href="/login" class="contrast">Log In</a></li>';
+
     $format = sprintf('
         <!doctype html>
         <html lang="en">
@@ -19,7 +29,7 @@ function htmlFromTemplate(string $inject): string {
                 <ul>
                     <li><a href="/" class="contrast">Home</a></li>
                     <li><a href="/book/index" class="contrast">Books</a></li>
-                    <li><a href="/login" class="contrast">Log In</a></li>
+                    %s
                 </ul>
             </nav>
 
@@ -28,7 +38,7 @@ function htmlFromTemplate(string $inject): string {
             </main>
         </body>
         </html>
-        ', $inject);
+        ', $authLink, $inject);
 
     return $format;
 }

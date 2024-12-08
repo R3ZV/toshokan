@@ -4,6 +4,11 @@ require_once "src/models/Book.php";
 
 class BookController {
     public static function index(): string {
+        if ($_SESSION['logged'] === false) {
+            header("Location: /404");
+            die();
+        }
+
         require_once "src/views/book/index.php";
 
         $books = Book::getAllBooks();
@@ -11,6 +16,11 @@ class BookController {
     }
 
     public static function show(): string {
+        if ($_SESSION['logged'] === false) {
+            header("Location: /404");
+            die();
+        }
+
         if (!array_key_exists('id', $_GET)) {
             header("Location: /404");
             die();
@@ -24,6 +34,11 @@ class BookController {
     }
 
     public static function delete() {
+        if ($_SESSION['logged'] === false) {
+            header("Location: /404");
+            die();
+        }
+
         if (!array_key_exists('id', $_GET)) {
             header("Location: /404");
             die();
@@ -48,6 +63,11 @@ class BookController {
     }
 
     public static function edit(): string {
+        if ($_SESSION['logged'] === false) {
+            header("Location: /404");
+            die();
+        }
+
         if (!array_key_exists('id', $_GET)) {
             header("Location: /404");
             die();
@@ -101,6 +121,11 @@ class BookController {
     }
 
     public static function add(): string {
+        if ($_SESSION['logged'] === false) {
+            header("Location: /404");
+            die();
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             return self::addGet();
         }
