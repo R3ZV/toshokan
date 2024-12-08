@@ -11,10 +11,11 @@ function displayBooks($books): string {
                 <th scope="col">Genre</th>
                 <th scope="col">Stock</th>
                 <th scope="col">Published</th>
-                <th scope="col col">Modify</th>
-            </tr>
-        </thead>
-        <tbody>';
+    ';
+    if ($_SESSION['logged']) {
+        $table .= '<th scope="col col">Modify</th>';
+    }
+    $table .= '</tr></thead><tbody>';
 
     foreach ($books as $book) {
         $table .= '<tr>
@@ -24,16 +25,23 @@ function displayBooks($books): string {
             <td>' . htmlspecialchars($book['genre']) . '</td>
             <td>' . htmlspecialchars($book['stock']) . '</td>
             <td>' . htmlspecialchars($book['published']) . '</td>
-            <td>
+            ';
+
+        if ($_SESSION['logged']) {
+            $table .= '<td>
                 <a href="/book/edit?id=' . htmlspecialchars($book['id']) . '">Edit</a> |
                 <a href="/book/delete?id=' . htmlspecialchars($book['id']) . '">Delete</a>
-            </td>
-        </tr>';
+            </td>';
+        }
+
+        $table .= '</tr>';
     }
 
     $table .= '</tbody></table>';
-    $content = $table . ' <a href="/book/add">Add a book</a>';
+    if ($_SESSION['logged']) {
+        $table .= '<a href="/book/add">Add a book</a>';
+    }
 
-    return htmlFromTemplate($content);
+    return htmlFromTemplate($table);
 }
 ?>

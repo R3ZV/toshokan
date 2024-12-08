@@ -4,11 +4,6 @@ require_once "src/models/Book.php";
 
 class BookController {
     public static function index(): string {
-        if ($_SESSION['logged'] === false) {
-            header("Location: /404");
-            die();
-        }
-
         require_once "src/views/book/index.php";
 
         $books = Book::getAllBooks();
