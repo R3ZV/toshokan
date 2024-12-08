@@ -1,6 +1,8 @@
 <?php
 require_once "config/pdo.php";
 
+// TODO:
+// remove the suffix Book since it is obvious what they will get
 class Book {
     public static function getAllBooks() {
         global $pdo;
@@ -35,6 +37,33 @@ class Book {
         $sql = "DELETE FROM books WHERE id = :id;";
         $stmt = $pdo->prepare($sql);
         $status = $stmt->execute(array(":id" => $id));
+        return $status;
+    }
+
+    public static function editBook(array $data): bool {
+        global $pdo;
+
+        $sql = "UPDATE books SET 
+                    title = :title, 
+                    author = :author, 
+                    description = :description, 
+                    genre = :genre, 
+                    stock = :stock, 
+                    published = :published 
+                WHERE id = :id";
+
+        $stmt = $pdo->prepare($sql);
+        $status = $stmt->execute(
+            array(
+                ":title" => $data['title'],
+                ":author" => $data['author'],
+                ":description" => $data['description'],
+                ":genre" => $data['genre'],
+                ":stock" => $data['stock'],
+                ":published" => $data['published'],
+                ":id" => $data['id'],
+            )
+        );
         return $status;
     }
 }

@@ -2,7 +2,7 @@
 require_once("src/views/template.php");
 
 function editBook($book): string {
-    $form = '<form action="/book/update?id=' . htmlspecialchars($book['id']) . '" method="POST">
+    $form = '<form action="/book/edit?id=' . htmlspecialchars($book['id']) . '" method="POST">
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" id="title" name="title" value="' . htmlspecialchars($book['title']) . '" required>
@@ -25,7 +25,7 @@ function editBook($book): string {
         </div>
         <div class="form-group">
             <label for="published">Published</label>
-            <input type="text" class="form-control" id="published" name="published" value="' . htmlspecialchars($book['published']) . '" required>
+            <input type="number" class="form-control" id="published" name="published" value="' . htmlspecialchars($book['published']) . '" required>
         </div>
         <button type="submit" class="btn btn-primary">Update Book</button>
     </form>';

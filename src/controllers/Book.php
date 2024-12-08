@@ -36,11 +36,17 @@ class BookController {
         die();
     }
 
-    function editGet(): string {
+    static function editGet($id): string {
+        $book = Book::getBook($id);
+
+        require_once "src/views/book/edit.php";
+        return editBook($book);
     }
 
-    function editPost(): string {
+    static function editPost(array $data): bool {
+        return Book::editBook($data);
     }
+
     public static function edit(): string {
         if (!array_key_exists('id', $_GET)) {
             header("Location: /404");
@@ -48,10 +54,36 @@ class BookController {
         }
 
         $id = $_GET['id'];
-        $book = Book::getBook($id);
 
-        require_once "src/views/book/edit.php";
-        return editBook($book);
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            return self::editGet($id);
+        }
+
+        // TODO: use result from editPost() to check for fail
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'id' => $id,
+                'title' => $_POST['title'],
+                'author' => $_POST['author'],
+                'description' => $_POST['description'],
+                'genre' => $_POST['genre'],
+                'stock' => $_POST['stock'],
+                'published' => $_POST['published']
+            ];
+
+            if ($data['stock'] < 0) {
+                header("Location: /book/index");
+                die();
+            }
+
+            self::editPost($data);
+        } else {
+            header("Location: /404");
+            die();
+        }
+
+        header("Location: /book/index");
+        die();
     }
 }
 ?>

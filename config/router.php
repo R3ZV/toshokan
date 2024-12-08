@@ -9,7 +9,6 @@ class Router {
 
     public function direct(): string {
         $uri = strtok($_SERVER['REQUEST_URI'], '?');
-        $method =  $_SERVER['REQUEST_METHOD'];
 
         if (array_key_exists($uri, $this->routes)) {
             $action = $this->routes[$uri];
