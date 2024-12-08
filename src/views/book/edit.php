@@ -12,6 +12,10 @@ function editBook($book): string {
             <input type="text" class="form-control" id="author" name="author" value="' . htmlspecialchars($book['author']) . '" required>
         </div>
         <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" name="description" value="' . htmlspecialchars($book['description']) . '" required>
+        </div>
+        <div class="form-group">
             <label for="genre">Genre</label>
             <input type="text" class="form-control" id="genre" name="genre" value="' . htmlspecialchars($book['genre']) . '" required>
         </div>
@@ -20,8 +24,8 @@ function editBook($book): string {
             <input type="number" class="form-control" id="stock" name="stock" value="' . htmlspecialchars($book['stock']) . '" required>
         </div>
         <div class="form-group">
-            <label for="published">Published Date</label>
-            <input type="date" class="form-control" id="published" name="published" value="' . htmlspecialchars($book['published']) . '" required>
+            <label for="published">Published</label>
+            <input type="text" class="form-control" id="published" name="published" value="' . htmlspecialchars($book['published']) . '" required>
         </div>
         <button type="submit" class="btn btn-primary">Update Book</button>
     </form>';

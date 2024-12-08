@@ -25,8 +25,8 @@ function displayBooks($books): string {
             <td>' . htmlspecialchars($book['stock']) . '</td>
             <td>' . htmlspecialchars($book['published']) . '</td>
             <td>
-                <a href="/book/edit?id=4">Edit</a> |
-                <a href="/book/delete?id=4">Delete<a>
+                <a href="/book/edit?id=' . htmlspecialchars($book['id']) . '">Edit</a> |
+                <a href="/book/delete?id=' . htmlspecialchars($book['id']) . '">Delete</a> |
             </td>
         </tr>';
     }

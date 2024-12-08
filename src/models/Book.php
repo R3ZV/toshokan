@@ -28,6 +28,15 @@ class Book {
 
         return $book;
     }
+
+    public static function deleteBook($id): bool {
+        global $pdo;
+
+        $sql = "DELETE FROM books WHERE id = :id;";
+        $stmt = $pdo->prepare($sql);
+        $status = $stmt->execute(array(":id" => $id));
+        return $status;
+    }
 }
 ?>
 
