@@ -12,12 +12,13 @@ $router = new Router();
 // Misc
 $router->addRoute("/", [HomeController::class, "index"]);
 $router->addRoute("/login", [Auth::class, "login"]);
+$router->addRoute("/account", [Auth::class, "account"]);
 $router->addRoute("/logout", [Auth::class, "logout"]);
 $router->addRoute("/404", [Errors::class, "notFound"]);
 
 // Books
 $router->addRoute("/book/index", [BookController::class, "index"]);
-$router->addRoute("/book/show", [BookController::class, "show"]);
+$router->addRoute("/book/view", [BookController::class, "view"]);
 $router->addRoute("/book/edit", [BookController::class, "edit"]);
 $router->addRoute("/book/delete", [BookController::class, "delete"]);
 $router->addRoute("/book/add", [BookController::class, "add"]);

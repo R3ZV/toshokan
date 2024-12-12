@@ -10,7 +10,7 @@ class BookController {
         return displayBooks($books);
     }
 
-    public static function show(): string {
+    public static function view(): string {
         if ($_SESSION['logged'] === false) {
             header("Location: /404");
             die();

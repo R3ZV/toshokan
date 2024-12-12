@@ -7,7 +7,7 @@ function htmlFromTemplate(string $inject): string {
     }
 
     $authLink = $logged ?
-    '<li><a href="/logout" class="contrast">Log Out</a></li>' : 
+    '<li><a href="/account" class="contrast">Account</a></li>' : 
     '<li><a href="/login" class="contrast">Log In</a></li>';
 
     $format = sprintf('

@@ -3,6 +3,11 @@
 require_once('src/models/User.php');
 
 class Auth {
+    public static function account() {
+        require_once('src/views/auth/account.php');
+        return accountInfo();
+    }
+
     public static function logout() {
         unset($_SESSION['logged']);
 
