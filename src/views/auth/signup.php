@@ -2,17 +2,25 @@
 
 require_once("src/views/template.php");
 
-function loginPage(): string {
-    $form = '<form action="/login" method="POST">
+function signupPage(): string {
+    $form = '<form action="/signup" method="POST">
         <form action="">
             <fieldset>
+                <label>
+                    Username:
+                    <input
+                        name="username"
+                        placeholder="Username"
+                    />
+                </label>
+
                 <label>
                     Email:
                     <input
                         type="email"
                         name="email"
                         placeholder="user@mail.com"
-                    />
+                   />
                 </label>
 
                 <label>
@@ -23,13 +31,14 @@ function loginPage(): string {
                         placeholder="Password"
                    />
                 </label>
+
             </fieldset>
         <input
             type="submit"
             value="Log In"
         />
     </form>
-    <p>Don\'t have an account? SignUp <a href="/signup">here</a>.
+    <p>Have an account? LogIn <a href="/login">here</a>.
     ';
     return htmlFromTemplate($form);
 }

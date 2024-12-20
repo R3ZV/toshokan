@@ -2,19 +2,32 @@
 require_once "config/pdo.php";
 
 class User {
-    public static function exists($username, $password): bool {
+    // TODO: change it so you check email instead of username
+    public static function exists(string $email, string $password): bool {
         global $pdo;
-
-        var_dump($username, $password);
 
         $sql = "
             SELECT * FROM users
-            WHERE username = :username AND
-                  password = :password AND
-                  role = 'admin';
+            WHERE email = :email AND
+                  password = :password;
         ";
+
         $stmt = $pdo->prepare($sql);
-        $status = $stmt->execute(array(":username" => $username, ":password" => $password));
+        $status = $stmt->execute(array(":email" => $email, ":password" => $password));
+
+        return $status;
+    }
+
+    public static function emailUsed(string $email): bool {
+        global $pdo;
+
+        $sql = "
+            SELECT * FROM users
+            WHERE email = :email;
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $status = $stmt->execute(array(":email" => $email));
 
         return $status;
     }
