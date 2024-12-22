@@ -2,23 +2,24 @@
 require_once "config/pdo.php";
 
 class User {
-    // TODO: change it so you check email instead of username
-    public static function exists(string $email, string $password): bool {
+    public static function exists(string $email, string $password) {
         global $pdo;
 
         $sql = "
-            SELECT * FROM users
+            SELECT id FROM users
             WHERE email = :email AND
-                  password = :password;
+            password = :password;
         ";
 
         $stmt = $pdo->prepare($sql);
-        $status = $stmt->execute(array(":email" => $email, ":password" => $password));
+        $stmt->execute(array(":email" => $email, ":password" => $password));
 
-        return $status;
+        $id = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $id;
     }
 
-    public static function emailUsed(string $email): bool {
+    public static function usedEmail(string $email): bool {
         global $pdo;
 
         $sql = "
@@ -27,9 +28,50 @@ class User {
         ";
 
         $stmt = $pdo->prepare($sql);
-        $status = $stmt->execute(array(":email" => $email));
+        $stmt->execute(array(":email" => $email));
+
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function addUser($data): bool {
+        global $pdo;
+
+        $sql = "
+            INSERT INTO users (username, email, password, role, pass_status)
+            VALUES (:username, :email, :password, 'member', 0);
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $status = $stmt->execute(array(
+            ":username" => $data['username'],
+            ":email" => $data['email'],
+            ":password" => $data['password']
+        ));
 
         return $status;
+    }
+
+    public static function getUserInfo($id) {
+        global $pdo;
+
+        // TODO: get borrowed books
+        $sql = "
+            SELECT * FROM users
+            WHERE id = :id;
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $ok = $stmt->execute(array(":id" => $id));
+        if ($ok) {
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $data;
+        }
+
+        return NULL;
     }
 }
 ?>

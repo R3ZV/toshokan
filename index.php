@@ -30,8 +30,16 @@ session_start([
     'use_strict_mode' => true // Prevents session fixation
 ]);
 
-if ($_SESSION == NULL) {
+if (!array_key_exists('logged', $_SESSION)) {
     $_SESSION['logged'] = false;
+}
+
+if (!array_key_exists('user_role', $_SESSION)) {
+    $_SESSION['user_role'] = "";
+}
+
+if (!array_key_exists('user_id', $_SESSION)) {
+    $_SESSION['user_id'] = "";
 }
 
 echo $router->direct();

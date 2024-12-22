@@ -18,8 +18,8 @@ function accountInfo($userInfo): string {
             <header>
                 <p>%s</p>
             </header>
-                <p>Role: %s</p>
-                <p>Library pass status: %s</p>
+                <p>Role: [%s]</p>
+                <p>Pass status: %s</p>
                 <p>Email: %s</p>
                 <div>
                     <p>Books borrowed: </p>
@@ -33,7 +33,7 @@ function accountInfo($userInfo): string {
         ',
         $userInfo['username'],
         $userInfo['role'],
-        $userInfo['libraryPass'],
+        $userInfo['pass_status'] === 0 ? 'Inactive' : 'Active',
         $userInfo['email'],
         listBooks($userInfo['borrowed'])
     );

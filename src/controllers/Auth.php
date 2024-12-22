@@ -11,13 +11,14 @@ class Auth {
     public static function account() {
         require_once('src/views/auth/account.php');
 
-        // TODO: fetch data from db
-        $userInfo = [];
-        $userInfo['username'] = "test username";
-        $userInfo['role'] = "test role";
-        $userInfo['libraryPass'] = "test status";
-        $userInfo['email'] = "test email";
-        $userInfo['borrowed'] = ['book1', 'book2', 'book3'];
+        if (!array_key_exists('user_id', $_SESSION)) {
+            header("Location: /");
+            die();
+        }
+
+        $userInfo = User::getUserInfo($_SESSION['user_id']);
+
+        $userInfo['borrowed'] = ['todo', 'todo', 'todo'];
         return accountInfo($userInfo);
     }
 
@@ -39,10 +40,14 @@ class Auth {
     }
 
     public static function loginPost($data): bool {
-        // TODO:
-        // 1. Check if the user exists
-        // 2. Get his role or id in session
-        return User::exists($data['email'], $data['password']);
+        $res = User::exists($data['email'], $data['password']);
+        if ($res !== NULL) {
+            $user_data = User::getUserInfo($res['id']);
+            $_SESSION['user_id'] = $user_data['id'];
+            $_SESSION['user_role'] = $user_data['role'];
+            return true;
+        }
+        return false;
     }
 
     public static function login(): string {
@@ -56,8 +61,8 @@ class Auth {
                 'password' => $_POST['password'],
             ];
 
-            // TODO:
-            // hash the password
+            $data['password'] = self::hashWithSalt($data['password']);
+
             if (self::loginPost($data)) {
                 $_SESSION['logged'] = true;
             } else {
@@ -69,6 +74,7 @@ class Auth {
             die();
         }
 
+        var_dump($_SESSION);
         header("Location: /");
         die();
     }
@@ -84,11 +90,11 @@ class Auth {
     }
 
     public static function signupPost($data): bool {
-        // TODO:
-        // 1. Check if the email has been used before
-        // TODO:
-        /* return User::exists($data['username'], $data['password']); */
-        return true;
+        if (User::usedEmail($data['email'])) {
+            $_SESSION['err'] = "used-email";
+            return false;
+        }
+        return User::addUser($data);
     }
 
     public static function signup(): string {
@@ -105,8 +111,11 @@ class Auth {
 
             $data['password'] = self::hashWithSalt($data['password']);
 
-            self::signupPost($data);
-            header("Location: /login");
+            if (self::signupPost($data)) {
+                header("Location: /login");
+            } else {
+                header("Location: /signup");
+            }
             die();
         } else {
             header("Location: /404");

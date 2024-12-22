@@ -1,14 +1,3 @@
-CREATE TABLE books (
-  id INTEGER AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(64),
-  author VARCHAR(64),
-  description VARCHAR(128),
-  genre VARCHAR(128),
-  stock INTEGER NOT NULL,
-  published INTEGER
-)ENGINE=InnoDB CHARSET=utf8mb4;
-
-
 -- BOOKS
 INSERT INTO books (title, author, description, genre, stock, published)
 VALUES ('Dune', 'Frank Herbert', 'A science fiction epic about desert planets.', 'Science Fiction', 10, 1965);
@@ -28,5 +17,10 @@ VALUES ('Sapiens', 'Yuval Noah Harari', 'A history of humankind.', 'Non-Fiction,
 INSERT INTO books (title, author, description, genre, stock, published)
 VALUES ('Dracula', 'Bram Stoker', 'A tale of the legendary vampire.', 'Horror, Gothic', 6, 1897);
 
+-- Super user
+-- only for localhost
+INSERT INTO users (username, email, password, role, pass_status)
+VALUES ('rzv', 'rzv@gmail.com', '2868679ac92cfae71c58312b9b6913375583b6ec7cef9b0285d1204f7a3be5b3', 'admin', '0');
+
 INSERT INTO migrations (name, date)
-VALUES ('create_books_2', '27/11/2024');
+VALUES ('initial_data_2', '2024/12/20');

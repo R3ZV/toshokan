@@ -3,7 +3,14 @@
 require_once("src/views/template.php");
 
 function signupPage(): string {
-    $form = '<form action="/signup" method="POST">
+    $form = '';
+    error_log(var_dump($_SESSION));
+    if (array_key_exists('err', $_SESSION) && $_SESSION['err'] === "used-email") {
+        $form .= "<p>Email you provided is already used!</p>";
+        $_SESSION['err'] = NULL;
+    }
+
+    $form .= '<form action="/signup" method="POST">
         <form action="">
             <fieldset>
                 <label>
