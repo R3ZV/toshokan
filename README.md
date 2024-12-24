@@ -26,10 +26,19 @@ you can filter books based on:
 
 ![Final UML](./public/final-uml.png "Final UML")
 
+# Exploits Defence
+
+Defended against:
+
+- [ ] Form Spoofing
+- [x] HTTP Request Spoofing
+- [ ] XSS
+- [x] SQL Injection
+
 # User
 
 The user should be able to:
-- [ ] Register for an account
+- [x] Register for an account
 - [ ] Apply for a library pass
 - [ ] Borrow books
 - [ ] Send a request to borrow a book

@@ -25,6 +25,7 @@ function htmlFromTemplate(string $inject): string {
         <body>
             <nav class="container">
                 <ul>
+                    <img src="/public/logo.svg" alt="Project Icon" style="height: 30px; width: 30px; margin-right: 8px;">
                     <li><strong>Toshokan</strong></li>
                 </ul>
                 <ul>
