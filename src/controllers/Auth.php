@@ -74,7 +74,6 @@ class Auth {
             die();
         }
 
-        var_dump($_SESSION);
         header("Location: /");
         die();
     }
