@@ -4,6 +4,8 @@ require_once("config/router.php");
 // Controllers
 require_once("src/controllers/Home.php");
 require_once("src/controllers/Book.php");
+require_once("src/controllers/User.php");
+require_once("src/controllers/Admin.php");
 require_once("src/controllers/Errors.php");
 require_once("src/controllers/Auth.php");
 
@@ -24,23 +26,15 @@ $router->addRoute("/book/edit", [BookController::class, "edit"]);
 $router->addRoute("/book/delete", [BookController::class, "delete"]);
 $router->addRoute("/book/add", [BookController::class, "add"]);
 
-session_start([
-    'cookie_httponly' => true,
-    'cookie_secure' => true, // Use HTTPS
-    'use_strict_mode' => true // Prevents session fixation
-]);
+// User
+$router->addRoute("/user/activatepass", [UserController::class, "activate"]);
+$router->addRoute("/user/return", [UserController::class, "returnBook"]);
 
-if (!array_key_exists('logged', $_SESSION)) {
-    $_SESSION['logged'] = false;
-}
+// Admin
+$router->addRoute("/admin/activations", [AdminController::class, "activations"]);
 
-if (!array_key_exists('user_role', $_SESSION)) {
-    $_SESSION['user_role'] = "";
-}
 
-if (!array_key_exists('user_id', $_SESSION)) {
-    $_SESSION['user_id'] = "";
-}
+session_start();
 
 echo $router->direct();
 

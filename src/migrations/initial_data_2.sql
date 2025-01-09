@@ -20,7 +20,7 @@ VALUES ('Dracula', 'Bram Stoker', 'A tale of the legendary vampire.', 'Horror, G
 -- Super user
 -- only for localhost
 INSERT INTO users (username, email, password, role, pass_status)
-VALUES ('rzv', 'rzv@gmail.com', '2868679ac92cfae71c58312b9b6913375583b6ec7cef9b0285d1204f7a3be5b3', 'admin', '0');
+VALUES ('rzv', 'rzv@gmail.com', '1d662a655f01daff535db57ec17be438e6604328ec267e266877385fdbf29a23', 'admin', '0');
 
 INSERT INTO migrations (name, date)
 VALUES ('initial_data_2', '2024/12/20');

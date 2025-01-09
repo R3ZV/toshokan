@@ -20,13 +20,10 @@ function accountInfo($userInfo): string {
             </header>
                 <p>Role: [%s]</p>
                 <p>Pass status: %s</p>
+                %s
                 <p>Email: %s</p>
-                <div>
-                    <p>Books borrowed: </p>
-                    %s
-                </div>
             <footer>
-                <a href="user/return">Return books</a>
+                %s
             </footer>
         </article>
         <a href="/logout">Log out</a>
@@ -34,8 +31,9 @@ function accountInfo($userInfo): string {
         $userInfo['username'],
         $userInfo['role'],
         $userInfo['pass_status'] === 0 ? 'Inactive' : 'Active',
+        ($userInfo['pass_status'] === 0 && $userInfo['role'] !== 'admin') ? '<a href="user/activatepass">Activate</a>' : '',
         $userInfo['email'],
-        listBooks($userInfo['borrowed'])
+        ($userInfo['role'] === 'admin') ? '<a href="admin/activations">Activation requests</a>' : '<a href="user/return">Return books</a>'
     );
 
     return htmlFromTemplate($content);

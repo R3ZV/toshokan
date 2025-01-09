@@ -41,7 +41,7 @@ class Auth {
 
     public static function loginPost($data): bool {
         $res = User::exists($data['email'], $data['password']);
-        if ($res !== NULL) {
+        if ($res) {
             $user_data = User::getUserInfo($res['id']);
             $_SESSION['user_id'] = $user_data['id'];
             $_SESSION['user_role'] = $user_data['role'];

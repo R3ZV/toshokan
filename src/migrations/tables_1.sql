@@ -25,12 +25,18 @@ CREATE TABLE books (
     published INTEGER
 )ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE barrows (
+CREATE TABLE borrows (
     id_book INTEGER,
     id_user INTEGER,
     status BOOLEAN,
     PRIMARY KEY (id_book, id_user),
     FOREIGN KEY (id_book) REFERENCES books(id),
+    FOREIGN KEY (id_user) REFERENCES users(id)
+)ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE activations (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    id_user INTEGER,
     FOREIGN KEY (id_user) REFERENCES users(id)
 )ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

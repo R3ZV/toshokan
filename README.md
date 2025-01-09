@@ -16,16 +16,6 @@ you can filter books based on:
 - Tags (e.g. fiction, science, math, etc.)
 - Library
 
-# UML
-
-## Current UML
-
-![Current UML](./public/uml.png "Current UML")
-
-## Final UML
-
-![Final UML](./public/final-uml.png "Final UML")
-
 # Exploits Defence
 
 Defended against:
@@ -39,9 +29,8 @@ Defended against:
 
 The user should be able to:
 - [x] Register for an account
-- [ ] Apply for a library pass
+- [x] Apply for a library pass
 - [ ] Borrow books
-- [ ] Send a request to borrow a book
 - [ ] Return a book
 
 # Admin
@@ -50,4 +39,3 @@ The admin of the library should:
 - [ ] Accept / Deny the application of a user
 - [x] Update book information
 - [x] Add / Delete books
-- [ ] Confirm or Deny the return of a book

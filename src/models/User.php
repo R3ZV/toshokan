@@ -36,6 +36,37 @@ class User {
 
         return false;
     }
+    public static function canRequest($id) {
+        global $pdo;
+
+        $sql = "
+            SELECT * FROM activations
+            WHERE id_user = :id;
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(":id" => $id));
+
+        if ($stmt->rowCount() > 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function activateRequest($id) {
+        global $pdo;
+
+        $sql = "
+            INSERT INTO activations (id_user)
+            VALUES (:id);
+        ";
+
+        $stmt = $pdo->prepare($sql);
+        $status = $stmt->execute(array(":id" => $id));
+
+        return $status;
+    }
 
     public static function addUser($data): bool {
         global $pdo;
